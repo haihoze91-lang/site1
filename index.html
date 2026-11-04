@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Alef — Immobilier de prestige à Tel Aviv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F4EEE4; --paper:#EFE7DA; --ink:#15171C; --ink2:#3A3B40; --stone:#8C8478;
+  --gold:#B08D57; --gold2:#D9B97F; --night:#0E1424;
+  --serif:"Cormorant Garamond", Georgia, serif; --sans:"Manrope", system-ui, sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cream)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--gold);color:#fff}
+
+/* grain */
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:200;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ---------- loader ---------- */
+#loader{position:fixed;inset:0;z-index:300;background:var(--cream);display:grid;place-items:center;transition:opacity 1s var(--ease),visibility 1s}
+#loader.done{opacity:0;visibility:hidden}
+.ld{display:flex;flex-direction:column;align-items:center;gap:22px}
+.ld-mark{font-family:var(--serif);font-size:56px;font-weight:300;letter-spacing:.02em;line-height:1}
+.ld-bar{width:160px;height:1px;background:rgba(21,23,28,.12);overflow:hidden}
+.ld-bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.ld-txt{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--stone)}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:22px clamp(20px,4vw,56px);transition:color .6s,background .6s,padding .6s var(--ease)}
+nav.dark{color:#F4EEE4}
+nav.solid{background:rgba(244,238,228,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:14px;padding-bottom:14px;color:var(--ink)}
+.logo{display:flex;align-items:baseline;gap:10px;font-family:var(--serif);font-size:24px;letter-spacing:.18em;font-weight:500}
+.logo small{font-family:var(--sans);font-size:9px;letter-spacing:.3em;opacity:.6;font-weight:500}
+.nav-links{display:flex;gap:34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav-links a{position:relative;opacity:.85}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  padding:14px 22px;border:1px solid currentColor;border-radius:100px;position:relative;overflow:hidden;transition:color .5s var(--ease);cursor:pointer;background:none;color:inherit;font-family:var(--sans)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1;border-radius:inherit}
+.btn:hover{color:var(--cream)}
+.btn:hover::before{transform:translateY(0)}
+nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cream)}
+.btn.fill{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.btn.fill::before{background:var(--gold)}
+.burger{display:none;width:28px;height:12px;position:relative;background:none;border:0;color:inherit;cursor:pointer}
+.burger i{position:absolute;left:0;right:0;height:1px;background:currentColor}
+.burger i:first-child{top:0}.burger i:last-child{bottom:0}
+
+/* ---------- hero scroll sequence ---------- */
+#hero{position:relative;height:520vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.steps{position:absolute;inset:0;pointer-events:none}
+.scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(246,239,228,.92) 0%,rgba(246,239,228,.6) 30%,rgba(246,239,228,0) 52%)}
+.scrim.dk{background:linear-gradient(90deg,rgba(8,12,30,.85) 0%,rgba(8,12,30,.45) 32%,rgba(8,12,30,0) 55%);opacity:0}
+@media (max-width:900px){.scrim{background:linear-gradient(0deg,rgba(246,239,228,.96) 0%,rgba(246,239,228,.75) 38%,rgba(246,239,228,0) 58%)}
+.scrim.dk{background:linear-gradient(0deg,rgba(8,12,30,.92) 0%,rgba(8,12,30,.6) 38%,rgba(8,12,30,0) 58%)}}
+.step{position:absolute;left:clamp(20px,6vw,96px);top:50%;transform:translateY(-50%);max-width:min(560px,44vw);opacity:0;will-change:opacity,transform,filter}
+.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor;opacity:.6}
+.step h1,.step h2{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6.4vw,104px);line-height:.95;letter-spacing:-.015em}
+.step h1 em,.step h2 em{font-style:italic;color:var(--gold)}
+.step p{margin-top:22px;font-size:15px;line-height:1.7;max-width:400px;opacity:.8}
+.step .btn{margin-top:30px;pointer-events:auto}
+.hud{position:absolute;bottom:28px;left:clamp(20px,6vw,96px);right:clamp(20px,6vw,96px);display:flex;justify-content:space-between;align-items:flex-end;font-size:10px;letter-spacing:.3em;text-transform:uppercase;pointer-events:none}
+.hud .count{font-family:var(--serif);font-size:15px;letter-spacing:.1em}
+.prog{position:absolute;left:50%;bottom:30px;width:120px;height:1px;background:currentColor;opacity:.25;transform:translateX(-50%)}
+.prog i{position:absolute;inset:0;background:currentColor;transform-origin:left;transform:scaleX(0);opacity:1}
+.scroll-cue{display:flex;align-items:center;gap:10px}
+.scroll-cue span{width:1px;height:30px;background:currentColor;position:relative;overflow:hidden;opacity:.5}
+.scroll-cue span::after{content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;background:currentColor;animation:cue 2s var(--ease) infinite}
+@keyframes cue{to{top:100%}}
+
+/* ---------- generic sections ---------- */
+section{position:relative}
+.wrap{padding:0 clamp(20px,6vw,96px)}
+.pad{padding-top:clamp(100px,16vh,180px);padding-bottom:clamp(100px,16vh,180px)}
+.label{font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;color:var(--stone);display:flex;gap:14px;align-items:center}
+.label b{font-family:var(--serif);font-weight:400;font-size:14px;letter-spacing:.1em;color:var(--ink)}
+.big{font-family:var(--serif);font-weight:300;font-size:clamp(38px,5.2vw,84px);line-height:1.02;letter-spacing:-.01em}
+.big em{font-style:italic;color:var(--gold)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);filter:blur(6px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease),filter 1.2s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none;filter:none}
+.lines .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.lines .ln>span{display:block;transform:translateY(110%);transition:transform 1.4s var(--ease);transition-delay:calc(var(--d,0)*110ms)}
+.lines.in .ln>span{transform:none}
+
+/* philosophy */
+#maison .grid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(40px,8vw,140px);align-items:start;margin-top:60px}
+#maison .txt p{font-size:16px;line-height:1.85;color:var(--ink2);margin-bottom:22px;max-width:520px}
+.sign{margin-top:40px;display:flex;align-items:center;gap:22px}
+.sign .s{font-family:var(--serif);font-style:italic;font-size:40px;color:var(--gold);line-height:1}
+.sign small{display:block;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);margin-top:6px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(21,23,28,.12);margin-top:clamp(80px,12vh,140px)}
+.stat{padding:34px 0 0;border-right:1px solid rgba(21,23,28,.12);padding-right:20px}
+.stat:last-child{border-right:0}
+.stat+.stat{padding-left:clamp(16px,2vw,32px)}
+.stat .n{font-family:var(--serif);font-weight:300;font-size:clamp(46px,5vw,76px);line-height:1}
+.stat .n sup{font-size:.4em;color:var(--gold);vertical-align:top;margin-left:4px}
+.stat p{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);margin-top:12px}
+
+/* horizontal properties */
+#biens{background:var(--ink);color:var(--cream)}
+#biens .label{color:rgba(244,238,228,.55)} #biens .label b{color:var(--cream)}
+.hs{position:relative}
+.hs-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:64px}
+.hs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:clamp(28px,5vh,56px)}
+.hs-track{display:flex;gap:clamp(16px,2.4vw,36px);padding:0 clamp(20px,6vw,96px);will-change:transform}
+.card{flex:0 0 auto;width:clamp(250px,38vh,460px);cursor:pointer}
+.card .ph{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:2px;background:#22252c}
+.card .ph canvas,.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.6s var(--ease)}
+.card:hover .ph canvas,.card:hover .ph img{transform:scale(1.02)}
+.card .tag{position:absolute;top:16px;left:16px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:8px 12px;border:1px solid rgba(244,238,228,.5);border-radius:100px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);background:rgba(14,20,36,.25)}
+.card .meta{display:flex;justify-content:space-between;align-items:flex-start;margin-top:18px;gap:16px}
+.card h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1.05}
+.card .loc{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-top:8px}
+.card .price{font-family:var(--serif);font-size:20px;color:var(--gold2);white-space:nowrap}
+.card .specs{display:flex;gap:18px;margin-top:14px;font-size:12px;opacity:.7;padding-top:14px;border-top:1px solid rgba(244,238,228,.14)}
+.card.end{width:clamp(240px,24vw,360px);display:flex;align-items:center}
+.card.end a{font-family:var(--serif);font-size:clamp(30px,3vw,44px);font-weight:300;line-height:1.05;display:block}
+.card.end a span{display:inline-block;margin-top:18px;width:64px;height:64px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:20px;color:var(--gold);transition:background .4s,color .4s}
+.card.end a:hover span{background:var(--gold);color:var(--ink)}
+
+/* concierge */
+#conciergerie .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,140px);margin-top:60px}
+.svc{border-top:1px solid rgba(21,23,28,.14)}
+.svc li{list-style:none;border-bottom:1px solid rgba(21,23,28,.14);padding:26px 0;display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:baseline;cursor:default;transition:padding .6s var(--ease)}
+.svc li:hover{padding-left:12px}
+.svc .i{font-family:var(--serif);color:var(--gold);font-size:15px}
+.svc h4{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.3vw,34px)}
+.svc p{grid-column:2/4;font-size:14px;line-height:1.7;color:var(--ink2);max-height:0;opacity:0;overflow:hidden;transition:max-height .7s var(--ease),opacity .7s,margin .7s}
+.svc li:hover p,.svc li.open p{max-height:120px;opacity:1;margin-top:10px}
+.svc .ar{font-size:18px;transition:transform .6s var(--ease)}
+.svc li:hover .ar,.svc li.open .ar{transform:rotate(45deg)}
+
+/* projects */
+#projets{background:var(--paper)}
+.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.4vw,36px);margin-top:60px}
+.pj{position:relative;aspect-ratio:3/4;overflow:hidden;color:var(--cream);border-radius:2px}
+.pj .bg{position:absolute;inset:-12% 0;will-change:transform}
+.pj .bg canvas,.pj .bg img{width:100%;height:100%;object-fit:cover;display:block}
+.pj .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,36,.0) 40%,rgba(14,20,36,.75));}
+.pj .ct{position:absolute;left:clamp(20px,3vw,40px);right:clamp(20px,3vw,40px);bottom:clamp(20px,3vw,40px)}
+.pj .st{font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.75}
+.pj h3{font-family:var(--serif);font-weight:300;font-size:clamp(36px,4vw,64px);line-height:1;margin-top:12px}
+.pj p{font-size:14px;opacity:.8;margin-top:12px;max-width:360px;line-height:1.6}
+
+/* quote */
+#citation{background:var(--night);color:var(--cream);text-align:center;overflow:hidden}
+#citation blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.6vw,72px);line-height:1.08;max-width:1100px;margin:0 auto}
+#citation blockquote em{color:var(--gold2)}
+#citation cite{display:block;margin-top:40px;font-style:normal;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+.marquee{margin-top:clamp(80px,12vh,140px);white-space:nowrap;font-family:var(--serif);font-size:clamp(60px,10vw,160px);font-weight:300;font-style:italic;opacity:.09;will-change:transform}
+
+/* contact */
+#contact .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,8vw,140px);margin-top:60px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:28px 24px}
+.f{position:relative;display:flex;flex-direction:column}
+.f.full{grid-column:1/-1}
+.f label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);margin-bottom:6px}
+.f input,.f select,.f textarea{font:inherit;font-size:16px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(21,23,28,.25);padding:10px 0;outline:none;border-radius:0;transition:border-color .4s;-webkit-appearance:none;appearance:none}
+.f textarea{resize:none;min-height:90px}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold)}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chips input{display:none}
+.chips label{margin:0;cursor:pointer;padding:12px 20px;border:1px solid rgba(21,23,28,.2);border-radius:100px;font-size:11px;letter-spacing:.2em;color:var(--ink);transition:all .4s var(--ease)}
+.chips input:checked+label{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.form-note{grid-column:1/-1;font-size:13px;color:var(--gold);min-height:20px}
+.coords{font-size:15px;line-height:2;color:var(--ink2)}
+.coords h5{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);font-weight:500;margin-top:30px}
+
+footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) clamp(20px,6vw,96px) 30px}
+.ft-big{font-family:var(--serif);font-weight:300;font-size:clamp(56px,13vw,220px);line-height:.85;letter-spacing:-.02em}
+.ft-big em{color:var(--gold2)}
+.ft-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-top:60px;padding-top:24px;border-top:1px solid rgba(244,238,228,.15);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.65}
+.ft-row div{display:flex;gap:24px;flex-wrap:wrap}
+
+/* cursor */
+#cursor{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:250;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease)}
+#cursor.big{width:64px;height:64px}
+@media (hover:none){#cursor{display:none}}
+
+/* mobile menu */
+#menu{position:fixed;inset:0;z-index:90;background:var(--ink);color:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:0 28px;gap:10px;clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease)}
+#menu.open{clip-path:inset(0 0 0 0)}
+#menu a{font-family:var(--serif);font-size:44px;font-weight:300}
+
+@media (max-width:900px){
+  .nav-links,nav .btn{display:none}
+  .burger{display:block}
+  .step{left:22px;right:22px;max-width:none;top:auto;bottom:96px;transform:none}
+  .step h1,.step h2{font-size:clamp(40px,11vw,60px)}
+  .step p{font-size:14px;margin-top:14px}
+  .step .btn{margin-top:20px}
+  .hud{bottom:24px}
+  .prog{display:none}
+  #maison .grid,#conciergerie .grid,#contact .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-right:0;padding:26px 0 26px!important;border-bottom:1px solid rgba(21,23,28,.12)}
+  .proj{grid-template-columns:1fr}
+  form{grid-template-columns:1fr}
+  .card{width:min(72vw,38vh)}
+  .hs-head .btn{display:none}
+  .hs-head{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  .rv,.lines .ln>span{transition:none;opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="ld"><div class="ld-mark">א</div><div class="ld-bar"><i></i></div><div class="ld-txt">Maison Alef</div></div></div>
+<div id="cursor"></div>
+
+<nav id="nav">
+  <a href="#hero" class="logo">MAISON ALEF <small>TEL AVIV</small></a>
+  <div class="nav-links">
+    <a href="#maison">La Maison</a><a href="#biens">Biens exclusifs</a><a href="#conciergerie">Conciergerie</a><a href="#projets">Projets</a>
+  </div>
+  <a href="#contact" class="btn">Rendez-vous</a>
+  <button class="burger" aria-label="Menu"><i></i><i></i></button>
+</nav>
+<div id="menu">
+  <a href="#maison">La Maison</a><a href="#biens">Biens exclusifs</a><a href="#conciergerie">Conciergerie</a><a href="#projets">Projets</a><a href="#contact">Contact</a>
+</div>
+
+<!-- =============== HERO : séquence pilotée au scroll =============== -->
+<section id="hero">
+  <div class="stage">
+    <canvas id="scene"></canvas>
+    <div class="scrim" id="scrimL"></div><div class="scrim dk" id="scrimD"></div>
+    <div class="steps">
+      <div class="step" data-in="0" data-out=".17">
+        <div class="eyebrow">Immobilier de prestige · Tel Aviv</div>
+        <h1>Votre future<br>adresse <em>commence</em><br>ici.</h1>
+        <p>Appartements d'exception, penthouses et projets neufs — choisis un à un, pour une clientèle qui exige le rare.</p>
+      </div>
+      <div class="step" data-in=".22" data-out=".42">
+        <div class="eyebrow">01 — Le plan</div>
+        <h2>Chaque bien<br>raconte une <em>histoire.</em></h2>
+        <p>Notre mission : vous aider à écrire la vôtre. Nous lisons un lieu comme un architecte — ses lignes, sa lumière, son potentiel.</p>
+      </div>
+      <div class="step" data-in=".47" data-out=".66">
+        <div class="eyebrow">02 — La lumière</div>
+        <h2>Vendre un bien<br>est un <em>art.</em></h2>
+        <p>Mise en scène, photographie, discrétion absolue : chaque propriété est présentée comme une œuvre.</p>
+      </div>
+      <div class="step" data-in=".71" data-out=".88">
+        <div class="eyebrow">03 — Le soir</div>
+        <h2>Bienvenue<br><em>chez vous.</em></h2>
+        <p>Du premier rendez-vous à la remise des clés — et bien après, avec notre conciergerie.</p>
+        <a href="#biens" class="btn">Découvrir les biens →</a>
+      </div>
+    </div>
+    <div class="hud" id="hud">
+      <div class="scroll-cue"><span></span>Défiler</div>
+      <div class="count"><span id="cnt">01</span> / 04</div>
+    </div>
+    <div class="prog" id="prog"><i></i></div>
+  </div>
+</section>
+
+<!-- =============== LA MAISON =============== -->
+<section id="maison" class="wrap pad">
+  <div class="label rv"><b>01</b> La Maison</div>
+  <div class="grid">
+    <h2 class="big lines"><span class="ln"><span>L'immobilier</span></span><span class="ln" style="--d:1"><span>de prestige,</span></span><span class="ln" style="--d:2"><span><em>sur mesure.</em></span></span></h2>
+    <div class="txt">
+      <p class="rv">Maison Alef accompagne une clientèle internationale dans l'achat, la vente et la location de biens d'exception à Tel Aviv — du front de mer de HaYarkon aux ruelles de Neve Tzedek.</p>
+      <p class="rv" style="--d:1">Francophones, anglophones et hébréophones, nous vous guidons à chaque étape : recherche off-market, négociation, notaire, fiscalité, rénovation et gestion locative.</p>
+      <div class="sign rv" style="--d:2"><div class="s">Prénom Nom</div><div>Fondateur<small>Maison Alef</small></div></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat rv"><div class="n"><span data-count="12">0</span><sup>ans</sup></div><p>d'expertise locale</p></div>
+    <div class="stat rv" style="--d:1"><div class="n"><span data-count="240">0</span><sup>+</sup></div><p>transactions</p></div>
+    <div class="stat rv" style="--d:2"><div class="n"><span data-count="38">0</span><sup>%</sup></div><p>biens off-market</p></div>
+    <div class="stat rv" style="--d:3"><div class="n"><span data-count="3">0</span></div><p>langues parlées</p></div>
+  </div>
+</section>
+
+<!-- =============== BIENS (scroll horizontal) =============== -->
+<section id="biens" class="hs">
+  <div class="hs-stage">
+    <div class="hs-head wrap">
+      <div>
+        <div class="label rv"><b>02</b> Biens exclusifs</div>
+        <h2 class="big lines" style="margin-top:22px"><span class="ln"><span>Une sélection</span></span><span class="ln" style="--d:1"><span><em>confidentielle.</em></span></span></h2>
+      </div>
+      <a href="#contact" class="btn rv" style="color:var(--cream)">Accès off-market</a>
+    </div>
+    <div class="hs-track" id="track">
+      <!-- Pour mettre une vraie photo : remplacez <canvas data-v="0"></canvas> par <img src="photo.jpg" alt=""> -->
+      <article class="card"><div class="ph"><canvas data-v="0"></canvas><span class="tag">Exclusivité</span></div>
+        <div class="meta"><div><h3>Penthouse Rothschild</h3><div class="loc">Boulevard Rothschild</div></div><div class="price">₪ 24,5 M</div></div>
+        <div class="specs"><span>5 pièces</span><span>240 m²</span><span>Terrasse 90 m²</span></div></article>
+      <article class="card"><div class="ph"><canvas data-v="1"></canvas><span class="tag">Vue mer</span></div>
+        <div class="meta"><div><h3>Front de mer</h3><div class="loc">Rue HaYarkon</div></div><div class="price">₪ 18,9 M</div></div>
+        <div class="specs"><span>4 pièces</span><span>165 m²</span><span>Étage élevé</span></div></article>
+      <article class="card"><div class="ph"><canvas data-v="2"></canvas><span class="tag">Bauhaus</span></div>
+        <div class="meta"><div><h3>Maison de ville</h3><div class="loc">Neve Tzedek</div></div><div class="price">₪ 31 M</div></div>
+        <div class="specs"><span>6 pièces</span><span>310 m²</span><span>Jardin & piscine</span></div></article>
+      <article class="card"><div class="ph"><canvas data-v="3"></canvas><span class="tag">Location</span></div>
+        <div class="meta"><div><h3>Duplex Sarona</h3><div class="loc">Sarona</div></div><div class="price">₪ 38 000 / mois</div></div>
+        <div class="specs"><span>4 pièces</span><span>190 m²</span><span>Meublé</span></div></article>
+      <div class="card end"><a href="#contact">Voir toute<br>la collection<br><span>→</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== CONCIERGERIE =============== -->
+<section id="conciergerie" class="wrap pad">
+  <div class="label rv"><b>03</b> Conciergerie</div>
+  <div class="grid">
+    <div>
+      <h2 class="big lines"><span class="ln"><span>Votre bien,</span></span><span class="ln" style="--d:1"><span>entre de</span></span><span class="ln" style="--d:2"><span><em>bonnes mains.</em></span></span></h2>
+      <p class="rv" style="margin-top:30px;font-size:16px;line-height:1.8;color:var(--ink2);max-width:440px">Vous vivez à l'étranger ? Nous gérons votre propriété comme si c'était la nôtre — en toute discrétion.</p>
+    </div>
+    <ul class="svc">
+      <li class="rv"><span class="i">i.</span><h4>Gestion locative</h4><span class="ar">+</span><p>Sélection des locataires, baux, encaissements et reporting mensuel en français.</p></li>
+      <li class="rv" style="--d:1"><span class="i">ii.</span><h4>Entretien & travaux</h4><span class="ar">+</span><p>Réseau d'artisans de confiance, suivi de chantier photo, rénovations clé en main.</p></li>
+      <li class="rv" style="--d:2"><span class="i">iii.</span><h4>Préparation d'arrivée</h4><span class="ar">+</span><p>Ménage, linge, courses et fleurs : tout est prêt quand vous posez vos valises.</p></li>
+      <li class="rv" style="--d:3"><span class="i">iv.</span><h4>Démarches administratives</h4><span class="ar">+</span><p>Arnona, factures, assurances, banque — nous nous occupons de tout.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- =============== PROJETS =============== -->
+<section id="projets" class="wrap pad">
+  <div class="label rv"><b>04</b> Projets neufs</div>
+  <h2 class="big lines" style="margin-top:22px"><span class="ln"><span>Les adresses</span></span><span class="ln" style="--d:1"><span>de <em>demain.</em></span></span></h2>
+  <div class="proj">
+    <a href="#contact" class="pj rv"><div class="bg" data-par><canvas data-v="4"></canvas></div><div class="ov"></div>
+      <div class="ct"><div class="st">Livraison 2027 · 18 résidences</div><h3>The Ivory House</h3><p>Une tour signée, des volumes de 4 à 7 pièces et un rooftop privé face à la mer.</p></div></a>
+    <a href="#contact" class="pj rv" style="--d:1"><div class="bg" data-par><canvas data-v="5"></canvas></div><div class="ov"></div>
+      <div class="ct"><div class="st">Livraison 2028 · 9 résidences</div><h3>Villa Lumière</h3><p>Restauration d'un immeuble Bauhaus classé, transformé en 9 appartements d'exception.</p></div></a>
+  </div>
+</section>
+
+<!-- =============== CITATION =============== -->
+<section id="citation" class="pad">
+  <div class="wrap">
+    <blockquote class="lines"><span class="ln"><span>« Une annonce peut être facile.</span></span><span class="ln" style="--d:1"><span>Bien vendre, c'est <em>un art.</em> »</span></span></blockquote>
+    <cite class="rv">— Prénom Nom, fondateur</cite>
+  </div>
+  <div class="marquee" id="marquee">Rothschild · Neve Tzedek · HaYarkon · Sarona · Old North · Jaffa · Rothschild · Neve Tzedek · HaYarkon · Sarona · Old North · Jaffa ·</div>
+</section>
+
+<!-- =============== CONTACT =============== -->
+<section id="contact" class="wrap pad">
+  <div class="label rv"><b>05</b> Acheter ou vendre</div>
+  <div class="grid">
+    <div>
+      <h2 class="big lines"><span class="ln"><span>Parlons de</span></span><span class="ln" style="--d:1"><span>votre <em>projet.</em></span></span></h2>
+      <div class="coords rv" style="margin-top:30px">
+        <h5>Bureau</h5>Boulevard Rothschild, Tel Aviv-Yafo
+        <h5>Téléphone</h5>+972 00 000 0000
+        <h5>E-mail</h5>contact@votre-domaine.com
+      </div>
+    </div>
+    <form id="form" class="rv" style="--d:1">
+      <div class="f full"><label>Je souhaite</label>
+        <div class="chips"><input type="radio" name="t" id="t1" checked><label for="t1">Acheter</label><input type="radio" name="t" id="t2"><label for="t2">Vendre</label><input type="radio" name="t" id="t3"><label for="t3">Louer</label><input type="radio" name="t" id="t4"><label for="t4">Conciergerie</label></div></div>
+      <div class="f"><label for="nm">Nom</label><input id="nm" required></div>
+      <div class="f"><label for="ph">Téléphone</label><input id="ph" type="tel"></div>
+      <div class="f"><label for="em">E-mail</label><input id="em" type="email" required></div>
+      <div class="f"><label for="bd">Budget</label><select id="bd"><option>5 – 10 M ₪</option><option>10 – 20 M ₪</option><option>20 M ₪ +</option></select></div>
+      <div class="f full"><label for="ms">Message</label><textarea id="ms"></textarea></div>
+      <div><button class="btn fill" type="submit">Envoyer la demande →</button></div>
+      <div class="form-note" id="note"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-big">Maison<br><em>Alef.</em></div>
+  <div class="ft-row"><span>© 2026 Maison Alef — Tel Aviv</span><div><a href="#">Instagram</a><a href="#">WhatsApp</a><a href="#">LinkedIn</a></div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* =====================================================================
+   CONFIG — séquence d'images (vidéo IA découpée en frames)
+   Quand vous aurez votre vidéo : découpez-la en images
+   (ffmpeg -i anim.mp4 -vf "fps=30,scale=1920:-1" -q:v 80 frames/%04d.webp)
+   puis mettez count = nombre d'images. Tant que count = 0, l'animation
+   dessinée en code ci-dessous est utilisée.
+   ===================================================================== */
+const FRAMES = { count: 120, path: 'frames/', pad: 4, ext: 'webp' };
+
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const rng=(p,a,b)=>clamp((p-a)/(b-a));
+const sm=t=>t*t*(3-2*t);
+const mix=(a,b,t)=>a+(b-a)*t;
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const mixc=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+const rgba=(c,a=1)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a})`;
+
+/* ---------------- Scène architecturale (dessin vectoriel) ---------------- */
+const G = (()=>{
+  const L=[]; // [x1,y1,x2,y2]
+  const rect=(x,y,w,h)=>{L.push([x,y,x+w,y],[x+w,y,x+w,y+h],[x+w,y+h,x,y+h],[x,y+h,x,y]);};
+  const ground=600;
+  L.push([20,ground,980,ground]);
+  // pilotis
+  [230,380,530,680,770].forEach(x=>{L.push([x-6,520,x-6,ground],[x+6,520,x+6,ground]);});
+  // lobby vitré
+  rect(400,532,200,68); for(let x=450;x<600;x+=50)L.push([x,532,x,600]);
+  // tour d'escalier
+  rect(150,230,50,370); L.push([168,262,168,500],[182,262,182,500],[168,262,182,262],[168,500,182,500]);
+  // corps principal
+  rect(200,220,600,300);
+  // dalles / balcons arrondis
+  const slabs=[520,420,320,220];
+  slabs.forEach(y=>{
+    L.push([190,y-7,840,y-7],[190,y+7,840,y+7],[190,y-7,190,y+7]);
+    for(let i=0;i<8;i++){const a1=-Math.PI/2+i*Math.PI/8,a2=a1+Math.PI/8;L.push([840+7*Math.cos(a1),y+7*Math.sin(a1),840+7*Math.cos(a2),y+7*Math.sin(a2)]);}
+  });
+  // garde-corps vitrés
+  [420,320,220].forEach(y=>{L.push([650,y-38,846,y-38],[846,y-38,846,y-7]);});
+  // fenêtres
+  const wins=[];
+  [[220,320],[320,420],[420,520]].forEach(([t,b])=>{
+    for(let i=0;i<5;i++){const w={x:228+i*80,y:t+30,w:72,h:b-t-52};wins.push(w);}
+    wins.push({x:660,y:t+24,w:56,h:b-t-38},{x:722,y:t+24,w:56,h:b-t-38});
+  });
+  wins.push({x:405,y:536,w:190,h:60,lobby:1});
+  wins.forEach(w=>{ if(!w.lobby) rect(w.x,w.y,w.w,w.h); });
+  // penthouse
+  rect(320,150,340,70);
+  const pw=[]; for(let i=0;i<4;i++){pw.push({x:330+i*82,y:160,w:74,h:54,pent:1});}
+  pw.forEach(w=>{rect(w.x,w.y,w.w,w.h);wins.push(w);});
+  L.push([290,143,700,143]);
+  // pergola
+  L.push([660,150,780,150],[780,150,780,220]); for(let x=670;x<780;x+=14)L.push([x,146,x,154]);
+  // palmiers
+  const palm=(x0,h,dir)=>{const top=[x0+dir*18,ground-h];let px=x0,py=ground;
+    for(let i=1;i<=10;i++){const t=i/10;const x=x0+dir*18*t*t,y=ground-h*t;L.push([px,py,x,y]);px=x;py=y;}
+    for(let f=0;f<7;f++){const a=-Math.PI+f*(Math.PI/6)+(dir>0?.1:-.1);const len=70+((f*37)%25);
+      let qx=top[0],qy=top[1];for(let s=1;s<=6;s++){const t=s/6;const x=top[0]+Math.cos(a)*len*t;const y=top[1]+Math.sin(a)*len*t*0.6+len*0.55*t*t;L.push([qx,qy,x,y]);qx=x;qy=y;}}
+    return top;};
+  const palmStart=L.length;
+  palm(85,300,1); palm(915,250,-1); palm(960,190,-1);
+  // longueurs cumulées
+  let tot=0; const cum=L.map(l=>{tot+=Math.hypot(l[2]-l[0],l[3]-l[1]);return tot;});
+  // ordre d'allumage pseudo-aléatoire
+  wins.forEach((w,i)=>w.t=((i*7919)%wins.length)/wins.length);
+  const stars=Array.from({length:90},(_,i)=>({x:(i*137.5)%1,y:((i*61.8)%1)*0.55,r:((i*13)%10)/10}));
+  return {L,cum,tot,wins,stars,ground,palmStart};
+})();
+
+const SKY={paper:[hex('#F3EEE6'),hex('#F3EEE6'),hex('#F3EEE6')],
+  dusk:[hex('#34405F'),hex('#C4846A'),hex('#F3C08A')],
+  night:[hex('#070B17'),hex('#141B33'),hex('#2B2945')]};
+
+function drawScene(ctx,W,H,p,opt={}){
+  const draw=rng(p,.02,.36), grid=1-sm(rng(p,.30,.5)), mat=sm(rng(p,.30,.54)),
+        dusk=sm(rng(p,.42,.66)), night=sm(rng(p,.60,.80)), lights=rng(p,.62,.88), zoom=sm(rng(p,.86,1));
+  // ciel
+  const sky=[0,1,2].map(i=>mixc(mixc(SKY.paper[i],SKY.dusk[i],dusk),SKY.night[i],night));
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,rgba(sky[0]));g.addColorStop(.62,rgba(sky[1]));g.addColorStop(1,rgba(sky[2]));
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+  // cadrage
+  const portrait=H>W*1.1;
+  const s=opt.s||(portrait?Math.min(W/860,H/900):Math.min(W/1200,H/820));
+  const cx=opt.cx??(portrait?W/2:W*0.62), cy=opt.cy??(portrait?H*0.42:H*0.53);
+  ctx.save();
+  // zoom vers une fenêtre du penthouse
+  const target={x:490,y:187};
+  const z=mix(1,26,zoom*zoom);
+  const sx=cx+(target.x-500)*s, sy=cy+(target.y-400)*s;
+  ctx.translate(mix(sx,W/2,zoom),mix(sy,H/2,zoom));
+  ctx.scale(z*s,z*s);
+  ctx.translate(-target.x,-target.y);
+
+  // grille blueprint
+  if(grid>0.01){ctx.strokeStyle=`rgba(34,50,74,${0.07*grid})`;ctx.lineWidth=1/s;
+    for(let x=-400;x<=1400;x+=40){ctx.beginPath();ctx.moveTo(x,-300);ctx.lineTo(x,900);ctx.stroke();}
+    for(let y=-300;y<=900;y+=40){ctx.beginPath();ctx.moveTo(-400,y);ctx.lineTo(1400,y);ctx.stroke();}
+    // cotes
+    ctx.strokeStyle=`rgba(34,50,74,${0.55*grid*draw})`;ctx.fillStyle=`rgba(34,50,74,${0.7*grid*draw})`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(150,105);ctx.lineTo(846,105);ctx.moveTo(150,97);ctx.lineTo(150,113);ctx.moveTo(846,97);ctx.lineTo(846,113);
+    ctx.moveTo(110,143);ctx.lineTo(110,600);ctx.moveTo(102,143);ctx.lineTo(118,143);ctx.moveTo(102,600);ctx.lineTo(118,600);ctx.stroke();
+    ctx.font='11px Manrope, sans-serif';ctx.textAlign='center';ctx.fillText('24.60 m',498,96);
+    ctx.save();ctx.translate(100,372);ctx.rotate(-Math.PI/2);ctx.fillText('18.40 m',0,0);ctx.restore();
+    ctx.textAlign='left';ctx.font='10px Manrope, sans-serif';ctx.fillText('ÉLÉVATION SUD — ÉCH. 1:100',150,650);
+  }
+
+  // soleil
+  if(dusk>0&&night<1){const sy=mix(250,560,dusk);const a=(dusk)*(1-night);
+    const sg=ctx.createRadialGradient(560,sy,0,560,sy,170);sg.addColorStop(0,`rgba(255,214,150,${.55*a})`);sg.addColorStop(1,'rgba(255,214,150,0)');
+    ctx.fillStyle=sg;ctx.fillRect(390,sy-170,340,340);ctx.fillStyle=`rgba(255,226,180,${.9*a})`;ctx.beginPath();ctx.arc(560,sy,34,0,7);ctx.fill();}
+  // étoiles
+  if(night>0){for(const st of G.stars){ctx.fillStyle=`rgba(255,255,255,${night*(.3+.7*st.r)})`;ctx.beginPath();ctx.arc(-300+st.x*1600,-250+st.y*800,.6+st.r*.9,0,7);ctx.fill();}}
+
+  // matières
+  if(mat>0){
+    const wall=mixc(mixc(hex('#F6F1E8'),hex('#E9C9A6'),dusk),hex('#23263A'),night);
+    const shade=mixc(mixc(hex('#DCD3C5'),hex('#B98E72'),dusk),hex('#181B2C'),night);
+    ctx.globalAlpha=mat;
+    ctx.fillStyle=rgba(shade);ctx.fillRect(150,230,50,370);
+    ctx.fillStyle=rgba(wall);ctx.fillRect(200,220,600,300);ctx.fillRect(320,150,340,70);
+    ctx.fillStyle=rgba(shade);ctx.fillRect(200,520,600,80);
+    // dalles
+    ctx.fillStyle=rgba(mixc(wall,[255,255,255],.25*(1-night)));
+    [520,420,320,220].forEach(y=>{ctx.beginPath();ctx.moveTo(190,y-7);ctx.lineTo(840,y-7);ctx.arc(840,y,7,-Math.PI/2,Math.PI/2);ctx.lineTo(190,y+7);ctx.closePath();ctx.fill();
+      ctx.fillStyle=`rgba(0,0,0,${.08+.1*dusk})`;ctx.fillRect(200,y+7,600,10);ctx.fillStyle=rgba(mixc(wall,[255,255,255],.25*(1-night)));});
+    ctx.fillRect(290,140,410,6);
+    // piscine
+    const water=mixc(mixc(hex('#A9C4C9'),hex('#D9A07E'),dusk),hex('#1C6E7A'),night);
+    ctx.fillStyle=rgba(water);ctx.fillRect(240,606,520,22);
+    if(night>0){ctx.fillStyle=`rgba(80,220,230,${.35*night})`;ctx.fillRect(240,606,520,22);}
+    // vitres
+    const glass=mixc(mixc(hex('#C9D3D8'),hex('#E7B48E'),dusk),hex('#151B2C'),night);
+    for(const w of G.wins){ctx.fillStyle=rgba(glass);ctx.fillRect(w.x,w.y,w.w,w.h);
+      ctx.fillStyle=`rgba(255,255,255,${.25*(1-night)})`;ctx.beginPath();ctx.moveTo(w.x,w.y+w.h);ctx.lineTo(w.x+w.w*.35,w.y);ctx.lineTo(w.x+w.w*.5,w.y);ctx.lineTo(w.x+w.w*.15,w.y+w.h);ctx.fill();}
+    // garde-corps
+    ctx.fillStyle=`rgba(255,255,255,${.18})`;[420,320,220].forEach(y=>ctx.fillRect(650,y-38,196,31));
+    ctx.globalAlpha=1;
+  }
+
+  // lumières intérieures
+  if(lights>0){
+    for(const w of G.wins){const on=clamp((lights-w.t*.8)*5);if(on<=0)continue;
+      const lg=ctx.createLinearGradient(0,w.y,0,w.y+w.h);lg.addColorStop(0,`rgba(255,190,110,${on})`);lg.addColorStop(1,`rgba(255,226,170,${on})`);
+      ctx.fillStyle=lg;ctx.fillRect(w.x,w.y,w.w,w.h);
+      ctx.fillStyle=`rgba(255,200,120,${.12*on})`;ctx.fillRect(w.x-10,w.y-8,w.w+20,w.h+16);}
+    // reflets piscine
+    ctx.fillStyle=`rgba(255,200,120,${.25*lights})`;for(let i=0;i<7;i++)ctx.fillRect(252+i*72,610,40,2);
+  }
+
+  // traits
+  const ink=mixc(mixc(hex('#22324A'),hex('#6B5A4C'),mat),hex('#0A0D18'),night);
+  const la=mix(1,.45,mat);
+  ctx.strokeStyle=rgba(ink,la);ctx.lineWidth=mix(1.25,1,mat);ctx.lineCap='round';
+  const lim=draw*G.tot;ctx.beginPath();
+  for(let i=0;i<G.L.length;i++){const l=G.L[i];const c=G.cum[i];const len=Math.hypot(l[2]-l[0],l[3]-l[1]);const start=c-len;
+    if(start>=lim)break;const t=Math.min(1,(lim-start)/len);ctx.moveTo(l[0],l[1]);ctx.lineTo(l[0]+(l[2]-l[0])*t,l[1]+(l[3]-l[1])*t);}
+  ctx.stroke();
+  // palmiers en silhouette au crépuscule
+  if(dusk>0){ctx.strokeStyle=rgba(mixc(hex('#3D3328'),hex('#05070F'),night),dusk*.9);ctx.lineWidth=2.6;ctx.beginPath();
+    for(let i=G.palmStart;i<G.L.length;i++){const l=G.L[i];ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);}ctx.stroke();}
+  ctx.restore();
+
+  // fondu final vers la crème (transition vers la section suivante)
+  const fin=rng(p,.93,1);
+  if(fin>0){ctx.fillStyle=`rgba(255,214,150,${Math.min(1,fin*1.6)*.9})`;ctx.fillRect(0,0,W,H);ctx.fillStyle=`rgba(244,238,228,${sm(fin)})`;ctx.fillRect(0,0,W,H);}
+}
+
+/* ---------------- Canvas hero ---------------- */
+const cv=document.getElementById('scene'),cx=cv.getContext('2d');
+let W=0,H=0,DPR=1;
+function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);}
+size();
+
+const imgs=[];const acv=document.createElement('canvas');acv.width=acv.height=1;const ac=acv.getContext('2d',{willReadFrequently:true});
+function frameUrl(i){return FRAMES.path+String(i+1).padStart(FRAMES.pad,'0')+'.'+FRAMES.ext;}
+function drawFrame(p){const i=Math.min(FRAMES.count-1,Math.floor(p*(FRAMES.count-1)));let im=imgs[i];
+  for(let k=i;(!im||!im.complete)&&k>0;k--)im=imgs[k];if(!im||!im.complete)return;
+  const iw=im.naturalWidth,ih=im.naturalHeight;
+  if(H>W*1.1){ // mobile portrait : on cadre l'immeuble et on prolonge le ciel / le sol
+    const r=W/iw*1.5,w=iw*r,h=ih*r,x=(W-w)/2,y=H*0.40-h/2;
+    const avg=(sy,sh)=>{try{ac.clearRect(0,0,1,1);ac.drawImage(im,0,sy,iw,sh,0,0,1,1);const d=ac.getImageData(0,0,1,1).data;return `rgb(${d[0]},${d[1]},${d[2]})`;}catch(e){return p<.42?'rgb(246,239,228)':(sy===0?'rgb(22,32,92)':'rgb(40,38,44)');}};
+    cx.fillStyle=avg(0,8);cx.fillRect(0,0,W,y+2);
+    const b=avg(ih-14,14);cx.fillStyle=b;cx.fillRect(0,y+h-2,W,H-(y+h)+2);
+    cx.drawImage(im,x,y,w,h);
+    const g=cx.createLinearGradient(0,y+h-40,0,y+h+10);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,b);cx.fillStyle=g;cx.fillRect(0,y+h-40,W,50);
+  }else{const r=Math.max(W/iw,H/ih);const w=iw*r,h=ih*r;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h);}}
+
+/* ---------------- Préchargement ---------------- */
+const bar=document.querySelector('.ld-bar i');
+function finishLoad(){bar.style.width='100%';setTimeout(()=>{document.getElementById('loader').classList.add('done');document.body.classList.add('ready');},450);}
+if(FRAMES.count>0){let n=0;for(let i=0;i<FRAMES.count;i++){const im=new Image();im.onload=im.onerror=()=>{n++;bar.style.width=(n/FRAMES.count*100)+'%';if(n===FRAMES.count)finishLoad();};im.src=frameUrl(i);imgs.push(im);}}
+else{let t=0;const iv=setInterval(()=>{t+=18;bar.style.width=Math.min(100,t)+'%';if(t>=100){clearInterval(iv);finishLoad();}},60);}
+
+/* ---------------- Smooth scroll ---------------- */
+let lenis=null;
+try{ if(window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const el=document.querySelector(a.getAttribute('href'));if(el){e.preventDefault();lenis.scrollTo(el,{offset:0,duration:1.8});closeMenu();}}));
+}}catch(e){lenis=null}
+if(!lenis)document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>closeMenu()));
+
+/* ---------------- Boucle principale ---------------- */
+const hero=document.getElementById('hero'),steps=[...document.querySelectorAll('.step')],nav=document.getElementById('nav'),
+      cnt=document.getElementById('cnt'),progI=document.querySelector('#prog i'),hud=document.getElementById('hud'),prog=document.getElementById('prog');
+const hs=document.getElementById('biens'),track=document.getElementById('track');
+const pars=[...document.querySelectorAll('[data-par]')];const marquee=document.getElementById('marquee');
+let sp=-1,smoothP=0;
+
+function sizeHS(){const dist=Math.max(0,track.scrollWidth-innerWidth);hs.style.height=(innerHeight+dist)+'px';hs.dataset.dist=dist;}
+sizeHS();
+
+function tick(time){
+  if(lenis)lenis.raf(time);
+  const y=window.scrollY,vh=innerHeight;
+  // hero progress
+  const r=hero.getBoundingClientRect();const total=hero.offsetHeight-vh;
+  const p=clamp(-r.top/total);
+  smoothP+= (p-smoothP)*0.18; if(Math.abs(p-smoothP)<1e-4)smoothP=p;
+  if(Math.abs(smoothP-sp)>1e-5 && r.bottom>0){sp=smoothP;
+    if(FRAMES.count>0){cx.clearRect(0,0,W,H);drawFrame(sp);}else drawScene(cx,W,H,sp);
+    // textes
+    steps.forEach((s,i)=>{const a=+s.dataset.in,b=+s.dataset.out,f=.05;
+      let o=i===0?1-rng(sp,b-f,b):Math.min(rng(sp,a,a+f),1-rng(sp,b-f,b));
+      if(i===steps.length-1)o=Math.min(rng(sp,a,a+f),1-rng(sp,b,b+.06));
+      const dy=(1-o)*(sp<a+f?40:-40);
+      s.style.opacity=o;s.style.filter=`blur(${(1-o)*10}px)`;
+      s.style.transform=(innerWidth>900?'translateY(calc(-50% + ':'translateY(calc(0% + ')+dy+'px))';
+      s.style.pointerEvents=o>.5?'auto':'none';});
+    const dark=sp>.5&&sp<.92;
+    steps.forEach(s=>s.style.color=dark?'#F4EEE4':'#15171C');
+    hud.style.color=prog.style.color=dark?'#F4EEE4':'#15171C';
+    const dk=rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
+    hud.style.opacity=1-rng(sp,.88,.94);prog.style.opacity=.25*(1-rng(sp,.88,.94));
+    progI.style.transform=`scaleX(${sp})`;
+    const idx=sp<.2?1:sp<.45?2:sp<.69?3:4;cnt.textContent='0'+idx;
+  }
+  // nav
+  const inHero=r.bottom>vh*.5;const navDark=inHero&&sp>.5&&sp<.92;
+  const hsr=hs.getBoundingClientRect();const onDark=(hsr.top<60&&hsr.bottom>60);
+  nav.classList.toggle('dark',navDark||onDark);
+  nav.classList.toggle('solid',!inHero&&!onDark);
+  // horizontal
+  const dist=+hs.dataset.dist||0;const hp=clamp(-hsr.top/Math.max(1,hs.offsetHeight-vh));
+  track.style.transform=`translate3d(${-hp*dist}px,0,0)`;
+  // parallax
+  pars.forEach(el=>{const b=el.parentElement.getBoundingClientRect();if(b.bottom<0||b.top>vh)return;const t=(b.top+b.height/2-vh/2)/vh;el.style.transform=`translate3d(0,${t*-8}%,0)`;});
+  if(marquee){const b=marquee.getBoundingClientRect();if(b.top<vh&&b.bottom>0)marquee.style.transform=`translate3d(${-(y*0.25)%(marquee.scrollWidth/2)}px,0,0)`;}
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+addEventListener('resize',()=>{size();sizeHS();sp=-1;renderThumbs();});
+
+/* ---------------- Vignettes générées (à remplacer par vos photos) ---------------- */
+const VARS=[{p:.6,cx:.5,cy:.62,s:.0011},{p:.5,cx:.38,cy:.55,s:.0016},{p:.74,cx:.55,cy:.5,s:.0009},{p:.82,cx:.7,cy:.42,s:.0019},{p:.66,cx:.5,cy:.55,s:.0012},{p:.79,cx:.35,cy:.55,s:.0014}];
+function renderThumbs(){document.querySelectorAll('canvas[data-v]').forEach(c=>{const v=VARS[+c.dataset.v];const w=c.clientWidth,h=c.clientHeight;if(!w)return;
+  const d=Math.min(2,devicePixelRatio||1);c.width=w*d;c.height=h*d;const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);
+  drawScene(x,w,h,v.p,{s:Math.max(w,h)*v.s*1.4,cx:w*v.cx,cy:h*v.cy});});}
+renderThumbs();
+
+/* ---------------- Révélations ---------------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+  e.target.querySelectorAll?.('[data-count]').forEach(countUp);}}),{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv,.lines').forEach(el=>io.observe(el));
+function countUp(el){const to=+el.dataset.count;const t0=performance.now();const d=1800;
+  (function f(t){const k=clamp((t-t0)/d);el.textContent=Math.round(to*(1-Math.pow(1-k,4)));if(k<1)requestAnimationFrame(f);})(t0);}
+
+/* ---------------- Divers ---------------- */
+document.querySelectorAll('.svc li').forEach(li=>li.addEventListener('click',()=>li.classList.toggle('open')));
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>menu.classList.toggle('open'));
+function closeMenu(){menu.classList.remove('open');}
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();
+  document.getElementById('note').textContent='Formulaire de démonstration : il faut encore le relier à votre e-mail ou CRM pour recevoir les demandes.';});
+const cur=document.getElementById('cursor');let mx=0,my=0,qx=0,qy=0;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function c(){qx+=(mx-qx)*.18;qy+=(my-qy)*.18;cur.style.transform=`translate(${qx}px,${qy}px) translate(-50%,-50%)`;requestAnimationFrame(c);})();
+document.querySelectorAll('a,button,.card,.svc li').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
+</script>
+</body>
+</html>
