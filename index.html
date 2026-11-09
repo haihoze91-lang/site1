@@ -60,7 +60,7 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .burger i:first-child{top:0}.burger i:last-child{bottom:0}
 
 /* ---------- hero scroll sequence ---------- */
-#hero{position:relative;height:720vh}
+#hero{position:relative;height:900vh}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .steps{position:absolute;inset:0;pointer-events:none}
@@ -253,17 +253,17 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
         <h1>Votre future<br>adresse <em>commence</em><br>ici.</h1>
         <p>Appartements d'exception, penthouses et projets neufs — choisis un à un, pour une clientèle qui exige le rare.</p>
       </div>
-      <div class="step" data-in=".26" data-out=".44">
+      <div class="step" data-in=".22" data-out=".42">
         <div class="eyebrow">01 — L'adresse</div>
         <h2>Au cœur<br>de <em>Tel Aviv.</em></h2>
         <p>Entre la Méditerranée et le boulevard Rothschild, les adresses les plus convoitées de la ville.</p>
       </div>
-      <div class="step" data-in=".5" data-out=".7">
+      <div class="step" data-in=".55" data-out=".74">
         <div class="eyebrow">02 — L'intérieur</div>
         <h2>Entrez,<br><em>vous êtes attendu.</em></h2>
         <p>Terrasses, volumes, lumière : chaque bien est choisi pour sa rareté.</p>
       </div>
-      <div class="step" data-in=".77" data-out=".9">
+      <div class="step" data-in=".86" data-out=".93">
         <div class="eyebrow">03 — Chez vous</div>
         <h2>Bienvenue<br><em>chez vous.</em></h2>
         <p>Du premier rendez-vous à la remise des clés — et bien après, avec notre conciergerie.</p>
@@ -395,6 +395,8 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
   <div class="ft-row"><span>© 2026 Maison Alef — Tel Aviv</span><div><a href="#">Instagram</a><a href="#">WhatsApp</a><a href="#">LinkedIn</a></div></div>
 </footer>
 
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="hero3d.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 /* =====================================================================
@@ -404,7 +406,8 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
    puis mettez count = nombre d'images. Tant que count = 0, l'animation
    dessinée en code ci-dessous est utilisée.
    ===================================================================== */
-const FRAMES = { count: 150, path: 'frames/', pad: 4, ext: 'webp' };
+const PHOTO = true;
+const FRAMES = { count: 0, path: 'frames/', pad: 4, ext: 'webp' };
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const rng=(p,a,b)=>clamp((p-a)/(b-a));
@@ -591,7 +594,9 @@ function drawFrame(p){const i=Math.min(FRAMES.count-1,Math.floor(p*(FRAMES.count
 const bar=document.querySelector('.ld-bar i');
 function finishLoad(){bar.style.width='100%';setTimeout(()=>{document.getElementById('loader').classList.add('done');document.body.classList.add('ready');},450);}
 if(FRAMES.count>0){let n=0;for(let i=0;i<FRAMES.count;i++){const im=new Image();im.onload=im.onerror=()=>{n++;bar.style.width=(n/FRAMES.count*100)+'%';if(n===FRAMES.count)finishLoad();};im.src=frameUrl(i);imgs.push(im);}}
-else{let t=0;const iv=setInterval(()=>{t+=18;bar.style.width=Math.min(100,t)+'%';if(t>=100){clearInterval(iv);finishLoad();}},60);}
+else{let t=0,done=false;const end=()=>{if(done)return;done=true;clearInterval(iv);finishLoad();};
+  const iv=setInterval(()=>{t+=4;bar.style.width=Math.min(92,t)+'%';},60);
+  if(window.HERO3D)end();else addEventListener('hero3d-ready',end);setTimeout(end,9000);}
 
 /* ---------------- Smooth scroll ---------------- */
 let lenis=null;
@@ -618,8 +623,9 @@ function tick(time){
   const r=hero.getBoundingClientRect();const total=hero.offsetHeight-vh;
   const p=clamp(-r.top/total);
   smoothP+= (p-smoothP)*0.18; if(Math.abs(p-smoothP)<1e-4)smoothP=p;
+  if(window.HERO3D&&r.bottom>0)window.HERO3D.render(smoothP);
   if(Math.abs(smoothP-sp)>1e-5 && r.bottom>0){sp=smoothP;
-    if(FRAMES.count>0){cx.clearRect(0,0,W,H);drawFrame(sp);}else drawScene(cx,W,H,sp);
+    if(window.HERO3D){}else if(FRAMES.count>0){cx.clearRect(0,0,W,H);drawFrame(sp);}else drawScene(cx,W,H,sp);
     // textes
     steps.forEach((s,i)=>{const a=+s.dataset.in,b=+s.dataset.out,f=.05;
       let o=i===0?1-rng(sp,b-f,b):Math.min(rng(sp,a,a+f),1-rng(sp,b-f,b));
@@ -628,16 +634,16 @@ function tick(time){
       s.style.opacity=o;s.style.filter=`blur(${(1-o)*10}px)`;
       s.style.transform=(innerWidth>900?'translateY(calc(-50% + ':'translateY(calc(0% + ')+dy+'px))';
       s.style.pointerEvents=o>.5?'auto':'none';});
-    const dark=FRAMES.count>0?sp<.95:(sp>.5&&sp<.92);
+    const dark=PHOTO?sp<.95:(sp>.5&&sp<.92);
     steps.forEach(s=>s.style.color=dark?'#F4EEE4':'#15171C');
     hud.style.color=prog.style.color=dark?'#F4EEE4':'#15171C';
-    const dk=FRAMES.count>0?1-rng(sp,.92,.97):rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
+    const dk=PHOTO?1-rng(sp,.92,.97):rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
     hud.style.opacity=1-rng(sp,.88,.94);prog.style.opacity=.25*(1-rng(sp,.88,.94));
     progI.style.transform=`scaleX(${sp})`;
-    const idx=sp<.23?1:sp<.47?2:sp<.74?3:4;cnt.textContent='0'+idx;
+    const idx=sp<.2?1:sp<.5?2:sp<.82?3:4;cnt.textContent='0'+idx;
   }
   // nav
-  const inHero=r.bottom>vh*.5;const navDark=inHero&&(FRAMES.count>0?sp<.95:(sp>.5&&sp<.92));
+  const inHero=r.bottom>vh*.5;const navDark=inHero&&(PHOTO?sp<.95:(sp>.5&&sp<.92));
   const hsr=hs.getBoundingClientRect();const onDark=(hsr.top<60&&hsr.bottom>60);
   nav.classList.toggle('dark',navDark||onDark);
   nav.classList.toggle('solid',!inHero&&!onDark);
