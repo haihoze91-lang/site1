@@ -60,7 +60,12 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .burger i:first-child{top:0}.burger i:last-child{bottom:0}
 
 /* ---------- hero scroll sequence ---------- */
-#hero{position:relative;height:900vh}
+#hero{position:relative;height:420vh}
+.seq{position:relative;height:420vh;background:#0e1424}
+.seq canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.seq .step{color:#F4EEE4}
+.seq .scrim.dk{opacity:1}
+.sfade{position:absolute;inset:0;pointer-events:none}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .steps{position:absolute;inset:0;pointer-events:none}
@@ -248,33 +253,29 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
     <canvas id="scene"></canvas>
     <div class="scrim" id="scrimL"></div><div class="scrim dk" id="scrimD"></div>
     <div class="steps">
-      <div class="step" data-in="0" data-out=".17">
+      <div class="step" data-in="0" data-out=".3">
         <div class="eyebrow">Immobilier de prestige · Tel Aviv</div>
         <h1>Votre future<br>adresse <em>commence</em><br>ici.</h1>
         <p>Appartements d'exception, penthouses et projets neufs — choisis un à un, pour une clientèle qui exige le rare.</p>
       </div>
-      <div class="step" data-in=".22" data-out=".42">
-        <div class="eyebrow">01 — L'adresse</div>
+      <div class="step" data-in=".36" data-out=".62">
+        <div class="eyebrow">01 — La ville</div>
         <h2>Au cœur<br>de <em>Tel Aviv.</em></h2>
         <p>Entre la Méditerranée et le boulevard Rothschild, les adresses les plus convoitées de la ville.</p>
       </div>
-      <div class="step" data-in=".55" data-out=".74">
-        <div class="eyebrow">02 — L'intérieur</div>
-        <h2>Entrez,<br><em>vous êtes attendu.</em></h2>
-        <p>Terrasses, volumes, lumière : chaque bien est choisi pour sa rareté.</p>
-      </div>
-      <div class="step" data-in=".86" data-out=".93">
-        <div class="eyebrow">03 — Chez vous</div>
-        <h2>Bienvenue<br><em>chez vous.</em></h2>
-        <p>Du premier rendez-vous à la remise des clés — et bien après, avec notre conciergerie.</p>
-        <a href="#biens" class="btn">Découvrir les biens →</a>
+      <div class="step" data-in=".7" data-out=".86">
+        <div class="eyebrow">02 — L'adresse</div>
+        <h2>Une tour<br><em>d'exception.</em></h2>
+        <p>Balcons arrondis, lumière du soir, vue sur la mer : bienvenue dans l'une de nos adresses.</p>
+        <a href="#maison" class="btn">Découvrir la maison →</a>
       </div>
     </div>
     <div class="hud" id="hud">
       <div class="scroll-cue"><span></span>Défiler</div>
-      <div class="count"><span id="cnt">01</span> / 04</div>
+      <div class="count"><span id="cnt">01</span> / 03</div>
     </div>
     <div class="prog" id="prog"><i></i></div>
+    <div class="sfade" id="heroFade" style="background:#F4EEE4;opacity:0"></div>
   </div>
 </section>
 
@@ -294,6 +295,28 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
     <div class="stat rv" style="--d:1"><div class="n"><span data-count="240">0</span><sup>+</sup></div><p>transactions</p></div>
     <div class="stat rv" style="--d:2"><div class="n"><span data-count="38">0</span><sup>%</sup></div><p>biens off-market</p></div>
     <div class="stat rv" style="--d:3"><div class="n"><span data-count="3">0</span></div><p>langues parlées</p></div>
+  </div>
+</section>
+
+
+<!-- =============== VISITE 2 : l'immeuble → rooftop → terrasse =============== -->
+<section class="seq" id="visite-penthouse" data-path="seq2/" data-count="121" data-from="#F4EEE4" data-to="#15171C">
+  <div class="stage">
+    <canvas></canvas>
+    <div class="scrim dk"></div>
+    <div class="steps">
+      <div class="step" data-in=".06" data-out=".44">
+        <div class="eyebrow">La visite — Le penthouse</div>
+        <h2>Une piscine<br><em>suspendue</em><br>sur la ville.</h2>
+        <p>Rooftop privé, pergola en bois, coucher de soleil sur la Méditerranée.</p>
+      </div>
+      <div class="step" data-in=".56" data-out=".9">
+        <div class="eyebrow">La terrasse</div>
+        <h2>Vivre<br><em>dehors.</em></h2>
+        <p>Salon extérieur, oliviers, baies vitrées grandes ouvertes sur la réception.</p>
+      </div>
+    </div>
+    <div class="sfade"></div>
   </div>
 </section>
 
@@ -340,6 +363,29 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
       <li class="rv" style="--d:2"><span class="i">iii.</span><h4>Préparation d'arrivée</h4><span class="ar">+</span><p>Ménage, linge, courses et fleurs : tout est prêt quand vous posez vos valises.</p></li>
       <li class="rv" style="--d:3"><span class="i">iv.</span><h4>Démarches administratives</h4><span class="ar">+</span><p>Arnona, factures, assurances, banque — nous nous occupons de tout.</p></li>
     </ul>
+  </div>
+</section>
+
+
+<!-- =============== VISITE 3 : terrasse → salon → chambre =============== -->
+<section class="seq" id="visite-interieur" data-path="seq3/" data-count="121" data-from="#F4EEE4" data-to="#EFE7DA">
+  <div class="stage">
+    <canvas></canvas>
+    <div class="scrim dk"></div>
+    <div class="steps">
+      <div class="step" data-in=".06" data-out=".44">
+        <div class="eyebrow">La visite — L'intérieur</div>
+        <h2>Entrez,<br><em>vous êtes attendu.</em></h2>
+        <p>Double hauteur, pierre claire, suspensions sculpturales : la réception comme une galerie.</p>
+      </div>
+      <div class="step" data-in=".56" data-out=".9">
+        <div class="eyebrow">La suite parentale</div>
+        <h2>Bienvenue<br><em>chez vous.</em></h2>
+        <p>Une chambre face à la mer, pour finir chaque journée sur le plus beau coucher de soleil de Tel Aviv.</p>
+        <a href="#contact" class="btn">Organiser une visite →</a>
+      </div>
+    </div>
+    <div class="sfade"></div>
   </div>
 </section>
 
@@ -395,8 +441,6 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
   <div class="ft-row"><span>© 2026 Maison Alef — Tel Aviv</span><div><a href="#">Instagram</a><a href="#">WhatsApp</a><a href="#">LinkedIn</a></div></div>
 </footer>
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-<script type="module" src="hero3d.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 /* =====================================================================
@@ -407,7 +451,7 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
    dessinée en code ci-dessous est utilisée.
    ===================================================================== */
 const PHOTO = true;
-const FRAMES = { count: 0, path: 'frames/', pad: 4, ext: 'webp' };
+const FRAMES = { count: 121, path: 'seq1/', pad: 4, ext: 'webp' };
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const rng=(p,a,b)=>clamp((p-a)/(b-a));
@@ -593,7 +637,7 @@ function drawFrame(p){const i=Math.min(FRAMES.count-1,Math.floor(p*(FRAMES.count
 /* ---------------- Préchargement ---------------- */
 const bar=document.querySelector('.ld-bar i');
 function finishLoad(){bar.style.width='100%';setTimeout(()=>{document.getElementById('loader').classList.add('done');document.body.classList.add('ready');},450);}
-if(FRAMES.count>0){let n=0;for(let i=0;i<FRAMES.count;i++){const im=new Image();im.onload=im.onerror=()=>{n++;bar.style.width=(n/FRAMES.count*100)+'%';if(n===FRAMES.count)finishLoad();};im.src=frameUrl(i);imgs.push(im);}}
+if(FRAMES.count>0){let n=0,done=false;const need=Math.ceil(FRAMES.count*.3);for(let i=0;i<FRAMES.count;i++){const im=new Image();im.onload=im.onerror=()=>{n++;bar.style.width=Math.min(100,n/need*100)+'%';sp=-1;if(n>=need&&!done){done=true;finishLoad();}};im.src=frameUrl(i);imgs.push(im);}setTimeout(()=>{if(!done){done=true;finishLoad();}},8000);}
 else{let t=0,done=false;const end=()=>{if(done)return;done=true;clearInterval(iv);finishLoad();};
   const iv=setInterval(()=>{t+=4;bar.style.width=Math.min(92,t)+'%';},60);
   if(window.HERO3D)end();else addEventListener('hero3d-ready',end);setTimeout(end,9000);}
@@ -612,6 +656,23 @@ const hero=document.getElementById('hero'),steps=[...document.querySelectorAll('
 const hs=document.getElementById('biens'),track=document.getElementById('track');
 const pars=[...document.querySelectorAll('[data-par]')];const marquee=document.getElementById('marquee');
 let sp=-1,smoothP=0;
+
+/* ---------------- Séquences vidéo secondaires (scroll) ---------------- */
+const SEQS=[...document.querySelectorAll('.seq')].map(sec=>({sec,cv:sec.querySelector('canvas'),n:+sec.dataset.count,path:sec.dataset.path,
+  imgs:[],loaded:false,sp:0,drawn:-1,steps:[...sec.querySelectorAll('.step')],fade:sec.querySelector('.sfade'),from:sec.dataset.from,to:sec.dataset.to}));
+function sizeSeq(q){const d=Math.min(1.5,devicePixelRatio||1);q.w=q.cv.clientWidth;q.h=q.cv.clientHeight;q.cv.width=q.w*d;q.cv.height=q.h*d;q.ctx=q.cv.getContext('2d');q.ctx.setTransform(d,0,0,d,0,0);q.drawn=-1;}
+SEQS.forEach(sizeSeq);
+function loadSeq(q){if(q.loaded)return;q.loaded=true;for(let i=0;i<q.n;i++){const im=new Image();im.onload=()=>{q.drawn=-1;};im.src=q.path+String(i+1).padStart(4,'0')+'.webp';q.imgs.push(im);}}
+function seqTick(q){const r=q.sec.getBoundingClientRect(),vh=innerHeight;
+  if(r.top<vh*2.2)loadSeq(q);
+  if(r.bottom<0||r.top>vh)return;
+  const p=clamp(-r.top/(q.sec.offsetHeight-vh));q.sp+=(p-q.sp)*.18;if(Math.abs(p-q.sp)<1e-4)q.sp=p;
+  let i=Math.round(q.sp*(q.n-1));let im=q.imgs[i];let k=i;while(k>0&&!(im&&im.complete&&im.naturalWidth)){k--;im=q.imgs[k];}
+  if(im&&im.complete&&im.naturalWidth&&q.drawn!==k){const s=Math.max(q.w/im.naturalWidth,q.h/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;q.ctx.drawImage(im,(q.w-w)/2,(q.h-h)/2,w,h);q.drawn=k;}
+  q.steps.forEach(st=>{const a=+st.dataset.in,b=+st.dataset.out,f=.06;const o=Math.min(rng(q.sp,a,a+f),1-rng(q.sp,b-f,b));const dy=(1-o)*(q.sp<a+f?40:-40);
+    st.style.opacity=o;st.style.filter=`blur(${(1-o)*10}px)`;st.style.transform=(innerWidth>900?'translateY(calc(-50% + ':'translateY(calc(0% + ')+dy+'px))';st.style.pointerEvents=o>.5?'auto':'none';});
+  const fin=1-rng(q.sp,0,.06),fout=rng(q.sp,.94,1);q.fade.style.background=q.sp<.5?q.from:q.to;q.fade.style.opacity=Math.max(fin,fout);
+}
 
 function sizeHS(){const dist=Math.max(0,track.scrollWidth-innerWidth);hs.style.height=(innerHeight+dist)+'px';hs.dataset.dist=dist;}
 sizeHS();
@@ -640,11 +701,12 @@ function tick(time){
     const dk=PHOTO?1-rng(sp,.92,.97):rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
     hud.style.opacity=1-rng(sp,.88,.94);prog.style.opacity=.25*(1-rng(sp,.88,.94));
     progI.style.transform=`scaleX(${sp})`;
-    const idx=sp<.2?1:sp<.5?2:sp<.82?3:4;cnt.textContent='0'+idx;
+    const idx=sp<.33?1:sp<.66?2:3;document.getElementById('heroFade').style.opacity=rng(sp,.9,1);cnt.textContent='0'+idx;
   }
   // nav
   const inHero=r.bottom>vh*.5;const navDark=inHero&&(PHOTO?sp<.95:(sp>.5&&sp<.92));
-  const hsr=hs.getBoundingClientRect();const onDark=(hsr.top<60&&hsr.bottom>60);
+  const hsr=hs.getBoundingClientRect();const onDark=(hsr.top<60&&hsr.bottom>60)||SEQS.some(q=>{const b=q.sec.getBoundingClientRect();return b.top<60&&b.bottom>60&&q.sp>.06&&q.sp<.94;});
+  SEQS.forEach(seqTick);
   nav.classList.toggle('dark',navDark||onDark);
   nav.classList.toggle('solid',!inHero&&!onDark);
   // horizontal
@@ -656,7 +718,7 @@ function tick(time){
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
-addEventListener('resize',()=>{size();sizeHS();sp=-1;renderThumbs();});
+addEventListener('resize',()=>{size();sizeHS();sp=-1;renderThumbs();SEQS.forEach(sizeSeq);});
 
 /* ---------------- Vignettes générées (à remplacer par vos photos) ---------------- */
 const VARS=[{p:.6,cx:.5,cy:.62,s:.0011},{p:.5,cx:.38,cy:.55,s:.0016},{p:.74,cx:.55,cy:.5,s:.0009},{p:.82,cx:.7,cy:.42,s:.0019},{p:.66,cx:.5,cy:.55,s:.0012},{p:.79,cx:.35,cy:.55,s:.0014}];
