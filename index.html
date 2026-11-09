@@ -60,12 +60,12 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .burger i:first-child{top:0}.burger i:last-child{bottom:0}
 
 /* ---------- hero scroll sequence ---------- */
-#hero{position:relative;height:420vh}
-.seq{position:relative;height:420vh;background:#0e1424}
+#hero{position:relative;height:340vh}
+.seq{position:relative;height:340vh;background:#0e1424}
 .seq canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .seq .step{color:#F4EEE4}
 .seq .scrim.dk{opacity:1}
-.sfade{position:absolute;inset:0;pointer-events:none}
+.sfade{display:none}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .steps{position:absolute;inset:0;pointer-events:none}
@@ -671,7 +671,7 @@ function seqTick(q){const r=q.sec.getBoundingClientRect(),vh=innerHeight;
   if(im&&im.complete&&im.naturalWidth&&q.drawn!==k){const s=Math.max(q.w/im.naturalWidth,q.h/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;q.ctx.drawImage(im,(q.w-w)/2,(q.h-h)/2,w,h);q.drawn=k;}
   q.steps.forEach(st=>{const a=+st.dataset.in,b=+st.dataset.out,f=.06;const o=Math.min(rng(q.sp,a,a+f),1-rng(q.sp,b-f,b));const dy=(1-o)*(q.sp<a+f?40:-40);
     st.style.opacity=o;st.style.filter=`blur(${(1-o)*10}px)`;st.style.transform=(innerWidth>900?'translateY(calc(-50% + ':'translateY(calc(0% + ')+dy+'px))';st.style.pointerEvents=o>.5?'auto':'none';});
-  const fin=1-rng(q.sp,0,.06),fout=rng(q.sp,.94,1);q.fade.style.background=q.sp<.5?q.from:q.to;q.fade.style.opacity=Math.max(fin,fout);
+  
 }
 
 function sizeHS(){const dist=Math.max(0,track.scrollWidth-innerWidth);hs.style.height=(innerHeight+dist)+'px';hs.dataset.dist=dist;}
@@ -701,7 +701,7 @@ function tick(time){
     const dk=PHOTO?1-rng(sp,.92,.97):rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
     hud.style.opacity=1-rng(sp,.88,.94);prog.style.opacity=.25*(1-rng(sp,.88,.94));
     progI.style.transform=`scaleX(${sp})`;
-    const idx=sp<.33?1:sp<.66?2:3;document.getElementById('heroFade').style.opacity=rng(sp,.9,1);cnt.textContent='0'+idx;
+    const idx=sp<.33?1:sp<.66?2:3;cnt.textContent='0'+idx;
   }
   // nav
   const inHero=r.bottom>vh*.5;const navDark=inHero&&(PHOTO?sp<.95:(sp>.5&&sp<.92));
