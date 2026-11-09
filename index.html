@@ -66,6 +66,9 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .seq .step{color:#F4EEE4}
 .seq .scrim.dk{opacity:1}
 .sfade{display:none}
+.blend-top::before,.blend-bot::after{content:"";position:absolute;left:0;right:0;height:45vh;z-index:6;pointer-events:none}
+.blend-top::before{top:0;background:linear-gradient(180deg,var(--from) 0%,var(--from) 6%,color-mix(in srgb,var(--from) 55%,transparent) 45%,transparent 100%)}
+.blend-bot::after{bottom:0;background:linear-gradient(0deg,var(--to) 0%,var(--to) 6%,color-mix(in srgb,var(--to) 55%,transparent) 45%,transparent 100%)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .steps{position:absolute;inset:0;pointer-events:none}
@@ -253,7 +256,7 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
 </div>
 
 <!-- =============== HERO : séquence pilotée au scroll =============== -->
-<section id="hero">
+<section id="hero" class="blend-bot" style="--to:#F4EEE4">
   <div class="stage">
     <canvas id="scene"></canvas>
     <div class="scrim" id="scrimL"></div><div class="scrim dk" id="scrimD"></div>
@@ -305,7 +308,7 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
 
 
 <!-- =============== VISITE 2 : l'immeuble → rooftop → terrasse =============== -->
-<section class="seq" id="visite-penthouse" data-path="seq2/" data-count="121" data-warp="0.0,0.0021,0.0035,0.0051,0.0065,0.0088,0.0105,0.0123,0.0142,0.0173,0.0195,0.0217,0.0241,0.028,0.0306,0.0333,0.036,0.0407,0.0438,0.0469,0.05,0.0554,0.0588,0.0623,0.0658,0.0718,0.0756,0.0795,0.0833,0.0899,0.0941,0.0984,0.1029,0.1107,0.1157,0.1208,0.126,0.1359,0.1423,0.1487,0.1556,0.1678,0.1761,0.1848,0.194,0.2085,0.2193,0.2298,0.2408,0.2562,0.268,0.2796,0.2915,0.3076,0.32,0.3325,0.3454,0.3626,0.3758,0.3889,0.4023,0.4198,0.4335,0.4469,0.4606,0.4784,0.4918,0.5052,0.5188,0.5363,0.5497,0.5629,0.5761,0.5924,0.6046,0.6165,0.6284,0.644,0.6551,0.6662,0.6775,0.6928,0.7036,0.7143,0.725,0.7398,0.7502,0.7604,0.7705,0.7848,0.7943,0.8033,0.812,0.8246,0.8327,0.8406,0.8485,0.8602,0.8674,0.8745,0.8815,0.892,0.8985,0.9046,0.9107,0.92,0.9256,0.9312,0.9367,0.945,0.9501,0.9548,0.9597,0.9677,0.9721,0.9765,0.981,0.9879,0.992,0.996,1.0" data-from="#F4EEE4" data-to="#15171C">
+<section class="seq blend-top blend-bot" style="--from:#F4EEE4;--to:#15171C" id="visite-penthouse" data-path="seq2/" data-count="121" data-warp="0.0,0.0021,0.0035,0.0051,0.0065,0.0088,0.0105,0.0123,0.0142,0.0173,0.0195,0.0217,0.0241,0.028,0.0306,0.0333,0.036,0.0407,0.0438,0.0469,0.05,0.0554,0.0588,0.0623,0.0658,0.0718,0.0756,0.0795,0.0833,0.0899,0.0941,0.0984,0.1029,0.1107,0.1157,0.1208,0.126,0.1359,0.1423,0.1487,0.1556,0.1678,0.1761,0.1848,0.194,0.2085,0.2193,0.2298,0.2408,0.2562,0.268,0.2796,0.2915,0.3076,0.32,0.3325,0.3454,0.3626,0.3758,0.3889,0.4023,0.4198,0.4335,0.4469,0.4606,0.4784,0.4918,0.5052,0.5188,0.5363,0.5497,0.5629,0.5761,0.5924,0.6046,0.6165,0.6284,0.644,0.6551,0.6662,0.6775,0.6928,0.7036,0.7143,0.725,0.7398,0.7502,0.7604,0.7705,0.7848,0.7943,0.8033,0.812,0.8246,0.8327,0.8406,0.8485,0.8602,0.8674,0.8745,0.8815,0.892,0.8985,0.9046,0.9107,0.92,0.9256,0.9312,0.9367,0.945,0.9501,0.9548,0.9597,0.9677,0.9721,0.9765,0.981,0.9879,0.992,0.996,1.0" data-from="#F4EEE4" data-to="#15171C">
   <div class="stage">
     <canvas></canvas>
     <div class="scrim dk"></div>
@@ -373,7 +376,7 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
 
 
 <!-- =============== VISITE 3 : terrasse → salon → chambre =============== -->
-<section class="seq" id="visite-interieur" data-path="seq3/" data-count="121" data-from="#F4EEE4" data-to="#EFE7DA">
+<section class="seq blend-top blend-bot" style="--from:#F4EEE4;--to:#EFE7DA" id="visite-interieur" data-path="seq3/" data-count="121" data-from="#F4EEE4" data-to="#EFE7DA">
   <div class="stage">
     <canvas></canvas>
     <div class="scrim dk"></div>
