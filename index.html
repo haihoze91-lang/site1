@@ -60,7 +60,7 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .burger i:first-child{top:0}.burger i:last-child{bottom:0}
 
 /* ---------- hero scroll sequence ---------- */
-#hero{position:relative;height:520vh}
+#hero{position:relative;height:720vh}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
 .steps{position:absolute;inset:0;pointer-events:none}
@@ -253,18 +253,18 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
         <h1>Votre future<br>adresse <em>commence</em><br>ici.</h1>
         <p>Appartements d'exception, penthouses et projets neufs — choisis un à un, pour une clientèle qui exige le rare.</p>
       </div>
-      <div class="step" data-in=".22" data-out=".42">
-        <div class="eyebrow">01 — Le plan</div>
-        <h2>Chaque bien<br>raconte une <em>histoire.</em></h2>
-        <p>Notre mission : vous aider à écrire la vôtre. Nous lisons un lieu comme un architecte — ses lignes, sa lumière, son potentiel.</p>
+      <div class="step" data-in=".26" data-out=".44">
+        <div class="eyebrow">01 — L'adresse</div>
+        <h2>Au cœur<br>de <em>Tel Aviv.</em></h2>
+        <p>Entre la Méditerranée et le boulevard Rothschild, les adresses les plus convoitées de la ville.</p>
       </div>
-      <div class="step" data-in=".47" data-out=".66">
-        <div class="eyebrow">02 — La lumière</div>
-        <h2>Vendre un bien<br>est un <em>art.</em></h2>
-        <p>Mise en scène, photographie, discrétion absolue : chaque propriété est présentée comme une œuvre.</p>
+      <div class="step" data-in=".5" data-out=".7">
+        <div class="eyebrow">02 — L'intérieur</div>
+        <h2>Entrez,<br><em>vous êtes attendu.</em></h2>
+        <p>Terrasses, volumes, lumière : chaque bien est choisi pour sa rareté.</p>
       </div>
-      <div class="step" data-in=".71" data-out=".88">
-        <div class="eyebrow">03 — Le soir</div>
+      <div class="step" data-in=".77" data-out=".9">
+        <div class="eyebrow">03 — Chez vous</div>
         <h2>Bienvenue<br><em>chez vous.</em></h2>
         <p>Du premier rendez-vous à la remise des clés — et bien après, avec notre conciergerie.</p>
         <a href="#biens" class="btn">Découvrir les biens →</a>
@@ -308,17 +308,17 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
       <a href="#contact" class="btn rv" style="color:var(--cream)">Accès off-market</a>
     </div>
     <div class="hs-track" id="track">
-      <!-- Pour mettre une vraie photo : remplacez <canvas data-v="0"></canvas> par <img src="photo.jpg" alt=""> -->
+      <!-- Pour mettre une vraie photo : remplacez <img src="img/rooftop.webp" alt="" loading="lazy"> par <img src="photo.jpg" alt=""> -->
       <article class="card"><div class="ph"><canvas data-v="0"></canvas><span class="tag">Exclusivité</span></div>
         <div class="meta"><div><h3>Penthouse Rothschild</h3><div class="loc">Boulevard Rothschild</div></div><div class="price">₪ 24,5 M</div></div>
         <div class="specs"><span>5 pièces</span><span>240 m²</span><span>Terrasse 90 m²</span></div></article>
-      <article class="card"><div class="ph"><canvas data-v="1"></canvas><span class="tag">Vue mer</span></div>
+      <article class="card"><div class="ph"><img src="img/chambre.webp" alt="" loading="lazy"><span class="tag">Vue mer</span></div>
         <div class="meta"><div><h3>Front de mer</h3><div class="loc">Rue HaYarkon</div></div><div class="price">₪ 18,9 M</div></div>
         <div class="specs"><span>4 pièces</span><span>165 m²</span><span>Étage élevé</span></div></article>
-      <article class="card"><div class="ph"><canvas data-v="2"></canvas><span class="tag">Bauhaus</span></div>
+      <article class="card"><div class="ph"><img src="img/salon.webp" alt="" loading="lazy"><span class="tag">Bauhaus</span></div>
         <div class="meta"><div><h3>Maison de ville</h3><div class="loc">Neve Tzedek</div></div><div class="price">₪ 31 M</div></div>
         <div class="specs"><span>6 pièces</span><span>310 m²</span><span>Jardin & piscine</span></div></article>
-      <article class="card"><div class="ph"><canvas data-v="3"></canvas><span class="tag">Location</span></div>
+      <article class="card"><div class="ph"><img src="img/terrasse.webp" alt="" loading="lazy"><span class="tag">Location</span></div>
         <div class="meta"><div><h3>Duplex Sarona</h3><div class="loc">Sarona</div></div><div class="price">₪ 38 000 / mois</div></div>
         <div class="specs"><span>4 pièces</span><span>190 m²</span><span>Meublé</span></div></article>
       <div class="card end"><a href="#contact">Voir toute<br>la collection<br><span>→</span></a></div>
@@ -348,9 +348,9 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
   <div class="label rv"><b>04</b> Projets neufs</div>
   <h2 class="big lines" style="margin-top:22px"><span class="ln"><span>Les adresses</span></span><span class="ln" style="--d:1"><span>de <em>demain.</em></span></span></h2>
   <div class="proj">
-    <a href="#contact" class="pj rv"><div class="bg" data-par><canvas data-v="4"></canvas></div><div class="ov"></div>
+    <a href="#contact" class="pj rv"><div class="bg" data-par><img src="img/immeuble.webp" alt="" loading="lazy"></div><div class="ov"></div>
       <div class="ct"><div class="st">Livraison 2027 · 18 résidences</div><h3>The Ivory House</h3><p>Une tour signée, des volumes de 4 à 7 pièces et un rooftop privé face à la mer.</p></div></a>
-    <a href="#contact" class="pj rv" style="--d:1"><div class="bg" data-par><canvas data-v="5"></canvas></div><div class="ov"></div>
+    <a href="#contact" class="pj rv" style="--d:1"><div class="bg" data-par><img src="img/ville.webp" alt="" loading="lazy"></div><div class="ov"></div>
       <div class="ct"><div class="st">Livraison 2028 · 9 résidences</div><h3>Villa Lumière</h3><p>Restauration d'un immeuble Bauhaus classé, transformé en 9 appartements d'exception.</p></div></a>
   </div>
 </section>
@@ -404,7 +404,7 @@ footer{background:var(--ink);color:var(--cream);padding:clamp(70px,10vh,110px) c
    puis mettez count = nombre d'images. Tant que count = 0, l'animation
    dessinée en code ci-dessous est utilisée.
    ===================================================================== */
-const FRAMES = { count: 120, path: 'frames/', pad: 4, ext: 'webp' };
+const FRAMES = { count: 150, path: 'frames/', pad: 4, ext: 'webp' };
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const rng=(p,a,b)=>clamp((p-a)/(b-a));
@@ -578,7 +578,7 @@ function frameUrl(i){return FRAMES.path+String(i+1).padStart(FRAMES.pad,'0')+'.'
 function drawFrame(p){const i=Math.min(FRAMES.count-1,Math.floor(p*(FRAMES.count-1)));let im=imgs[i];
   for(let k=i;(!im||!im.complete)&&k>0;k--)im=imgs[k];if(!im||!im.complete)return;
   const iw=im.naturalWidth,ih=im.naturalHeight;
-  if(H>W*1.1){ // mobile portrait : on cadre l'immeuble et on prolonge le ciel / le sol
+  if(false){ // mobile portrait : on cadre l'immeuble et on prolonge le ciel / le sol
     const r=W/iw*1.5,w=iw*r,h=ih*r,x=(W-w)/2,y=H*0.40-h/2;
     const avg=(sy,sh)=>{try{ac.clearRect(0,0,1,1);ac.drawImage(im,0,sy,iw,sh,0,0,1,1);const d=ac.getImageData(0,0,1,1).data;return `rgb(${d[0]},${d[1]},${d[2]})`;}catch(e){return p<.42?'rgb(246,239,228)':(sy===0?'rgb(22,32,92)':'rgb(40,38,44)');}};
     cx.fillStyle=avg(0,8);cx.fillRect(0,0,W,y+2);
@@ -628,16 +628,16 @@ function tick(time){
       s.style.opacity=o;s.style.filter=`blur(${(1-o)*10}px)`;
       s.style.transform=(innerWidth>900?'translateY(calc(-50% + ':'translateY(calc(0% + ')+dy+'px))';
       s.style.pointerEvents=o>.5?'auto':'none';});
-    const dark=sp>.5&&sp<.92;
+    const dark=FRAMES.count>0?sp<.95:(sp>.5&&sp<.92);
     steps.forEach(s=>s.style.color=dark?'#F4EEE4':'#15171C');
     hud.style.color=prog.style.color=dark?'#F4EEE4':'#15171C';
-    const dk=rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
+    const dk=FRAMES.count>0?1-rng(sp,.92,.97):rng(sp,.44,.54)*(1-rng(sp,.86,.92));document.getElementById('scrimD').style.opacity=dk;document.getElementById('scrimL').style.opacity=(1-dk)*(1-rng(sp,.86,.92));
     hud.style.opacity=1-rng(sp,.88,.94);prog.style.opacity=.25*(1-rng(sp,.88,.94));
     progI.style.transform=`scaleX(${sp})`;
-    const idx=sp<.2?1:sp<.45?2:sp<.69?3:4;cnt.textContent='0'+idx;
+    const idx=sp<.23?1:sp<.47?2:sp<.74?3:4;cnt.textContent='0'+idx;
   }
   // nav
-  const inHero=r.bottom>vh*.5;const navDark=inHero&&sp>.5&&sp<.92;
+  const inHero=r.bottom>vh*.5;const navDark=inHero&&(FRAMES.count>0?sp<.95:(sp>.5&&sp<.92));
   const hsr=hs.getBoundingClientRect();const onDark=(hsr.top<60&&hsr.bottom>60);
   nav.classList.toggle('dark',navDark||onDark);
   nav.classList.toggle('solid',!inHero&&!onDark);
