@@ -72,7 +72,12 @@ nav.dark .btn:hover{color:var(--ink)} nav.dark .btn::before{background:var(--cre
 .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(246,239,228,.92) 0%,rgba(246,239,228,.6) 30%,rgba(246,239,228,0) 52%)}
 .scrim.dk{background:linear-gradient(0deg,rgba(8,12,30,.88) 0%,rgba(8,12,30,.55) 30%,rgba(8,12,30,0) 62%),linear-gradient(90deg,rgba(8,12,30,.55) 0%,rgba(8,12,30,0) 50%);opacity:0}
 @media (max-width:900px){.scrim{background:linear-gradient(0deg,rgba(246,239,228,.96) 0%,rgba(246,239,228,.75) 38%,rgba(246,239,228,0) 58%)}
-.scrim.dk{background:linear-gradient(0deg,rgba(8,12,30,.94) 0%,rgba(8,12,30,.7) 30%,rgba(8,12,30,0) 55%)}}
+.scrim.dk{background:linear-gradient(0deg,rgba(8,12,30,.96) 0%,rgba(8,12,30,.9) 38%,rgba(8,12,30,.6) 56%,rgba(8,12,30,0) 74%),linear-gradient(180deg,rgba(8,12,30,.5) 0%,rgba(8,12,30,0) 16%)}
+  body .step{text-shadow:0 1px 14px rgba(0,0,0,.55)}
+  body .step h1,body .step h2{color:#fff}
+  body .step h1 em,body .step h2 em{color:#E6C893}
+  body .step p{opacity:1;color:rgba(255,255,255,.92);font-size:14px;line-height:1.6}
+  body .step .eyebrow{color:rgba(255,255,255,.85)}}
 .step{position:absolute;left:clamp(20px,6vw,96px);top:66%;transform:translateY(-50%);max-width:min(560px,44vw);opacity:0;will-change:opacity,transform,filter}
 .eyebrow{font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .eyebrow::before{content:"";width:34px;height:1px;background:currentColor;opacity:.6}
