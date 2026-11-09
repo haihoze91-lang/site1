@@ -617,7 +617,7 @@ function drawScene(ctx,W,H,p,opt={}){
 /* ---------------- Canvas hero ---------------- */
 const cv=document.getElementById('scene'),cx=cv.getContext('2d');
 let W=0,H=0,DPR=1;
-function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);}
+function size(){DPR=Math.min(2,window.devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);cx.imageSmoothingQuality='high';}
 size();
 
 const imgs=[];const acv=document.createElement('canvas');acv.width=acv.height=1;const ac=acv.getContext('2d',{willReadFrequently:true});
@@ -660,7 +660,7 @@ let sp=-1,smoothP=0;
 /* ---------------- Séquences vidéo secondaires (scroll) ---------------- */
 const SEQS=[...document.querySelectorAll('.seq')].map(sec=>({sec,cv:sec.querySelector('canvas'),n:+sec.dataset.count,path:sec.dataset.path,
   imgs:[],loaded:false,sp:0,drawn:-1,steps:[...sec.querySelectorAll('.step')],fade:sec.querySelector('.sfade'),from:sec.dataset.from,to:sec.dataset.to}));
-function sizeSeq(q){const d=Math.min(1.5,devicePixelRatio||1);q.w=q.cv.clientWidth;q.h=q.cv.clientHeight;q.cv.width=q.w*d;q.cv.height=q.h*d;q.ctx=q.cv.getContext('2d');q.ctx.setTransform(d,0,0,d,0,0);q.drawn=-1;}
+function sizeSeq(q){const d=Math.min(1.5,devicePixelRatio||1);q.w=q.cv.clientWidth;q.h=q.cv.clientHeight;q.cv.width=q.w*d;q.cv.height=q.h*d;q.ctx=q.cv.getContext('2d');q.ctx.setTransform(d,0,0,d,0,0);q.ctx.imageSmoothingQuality='high';q.drawn=-1;}
 SEQS.forEach(sizeSeq);
 function loadSeq(q){if(q.loaded)return;q.loaded=true;for(let i=0;i<q.n;i++){const im=new Image();im.onload=()=>{q.drawn=-1;};im.src=q.path+String(i+1).padStart(4,'0')+'.webp';q.imgs.push(im);}}
 function seqTick(q){const r=q.sec.getBoundingClientRect(),vh=innerHeight;
